@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" 
+        xmlns:h="http://java.sun.com/jsf/html" 
+        xmlns:p="http://primefaces.org/ui">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head></h:head>
+        <h:body>
+            <h:form id="formRegistro">
+                <p:panel header="Formulario Registro Empleado">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="Nombre: " for="idNombre"/>
+                        <p:inputText id="idNombre" value="#{grabilityViewController.empleadoDto.nombre}"/>
+                        <p:outputLabel value="Apellido: " for="idApellido"/>
+                        <p:inputText id="idApellido" value="#{grabilityViewController.empleadoDto.apellido}"/>
+                        <p:outputLabel value="Email: " for="idEmail"/>
+                        <p:inputText id ="idEmail" value="#{grabilityViewController.empleadoDto.email}"/>
+                        <p:outputLabel value="Fecha de ingreso: " for="idFechaIngreso"/>
+                        <p:calendar id="idFechaIngreso" value="#{grabilityViewController.empleadoDto.hireDate}"/>
+                        <p:outputLabel value="Codigo rol empleado: " for="idRol"/>
+                        <p:inputText id="idRol" value="#{grabilityViewController.empleadoDto.jobId}"/>
+                    </p:panelGrid>
+                    <div align="center">
+                        <p:panelGrid columns="3">
+                            <p:commandButton value="Guardar" update="formRegistro" action="#{grabilityViewController.registrar()}"/>
+                            <p:commandButton value="Consultar" update="formRegistro" action="#{grabilityViewController.consultar()}"/>
+                            <p:commandButton value="Limpiar" update="formRegistro" action="#{grabilityViewController.limpiar()}"/>
+                        </p:panelGrid>
+                    </div>
+                </p:panel>
+                
+               <p:panel header="Empleados registrados" id="panelTablaEmpleados">
+                   <p:dataTable id="tablaEmpleados" value="#{grabilityViewController.listaEmpleados}" tabindex="#{grabilityViewController.consultar()}"
+                                 var="emp" 
+                                 paginator="true"
+                                 rows="5"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 emptyMessage="no se encontraron empleados" 
+                                 rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Nombre" sortBy="#{emp.nombre}" filterBy="#{emp.nombre}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{emp.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Apellido" sortBy="#{emp.apellido}" filterBy="#{emp.apellido}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{emp.apellido}"/>
+                        </p:column>
+                        <p:column headerText="Email" sortBy="#{emp.email}" filterBy="#{emp.email}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{emp.email}"/>
+                        </p:column>
+                        <p:column headerText="Cargo" sortBy="#{emp.cargo}" filterBy="#{emp.cargo}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{emp.cargo}"/>
+                        </p:column>
+                        <p:column headerText="Departamento" sortBy="#{emp.descDepartamento}" filterBy="#{emp.descDepartamento}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{emp.descDepartamento}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+            </h:form>
+        </h:body>
+    </html>
+</f:view>
